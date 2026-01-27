@@ -3,716 +3,454 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Mahmoud Shalma - Senior PHP/Laravel Developer</title>
+  <title>Mahmoud Shalma - Senior PHP/Laravel Developer & Team Lead</title>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    
-    :root {
-      --primary: #6366f1;
-      --secondary: #8b5cf6;
-      --accent: #06b6d4;
-      --dark: #0f172a;
-      --darker: #020617;
-      --glass: rgba(255,255,255,0.05);
-      --glass-border: rgba(255,255,255,0.1);
-    }
-    
-    html { scroll-behavior: smooth; }
-    
-    body {
-      font-family: 'Segoe UI', system-ui, sans-serif;
-      background: var(--darker);
-      color: #e2e8f0;
-      line-height: 1.6;
-      overflow-x: hidden;
-    }
-    
-    /* Animated Background */
-    .bg-animation {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      z-index: -1;
-      background: linear-gradient(135deg, var(--darker) 0%, #1e1b4b 50%, var(--darker) 100%);
-    }
-    
-    .bg-animation::before {
-      content: '';
-      position: absolute;
-      top: -50%; left: -50%;
-      width: 200%; height: 200%;
-      background: radial-gradient(circle, rgba(99,102,241,0.1) 0%, transparent 50%),
-                  radial-gradient(circle at 80% 20%, rgba(6,182,212,0.1) 0%, transparent 40%);
-      animation: rotate 30s linear infinite;
-    }
-    
-    @keyframes rotate { to { transform: rotate(360deg); } }
-    
-    /* Floating Orbs */
-    .orb {
-      position: fixed;
-      border-radius: 50%;
-      filter: blur(80px);
-      opacity: 0.5;
-      animation: float 20s ease-in-out infinite;
-    }
-    
-    .orb-1 { width: 400px; height: 400px; background: var(--primary); top: 10%; left: 10%; }
-    .orb-2 { width: 300px; height: 300px; background: var(--accent); top: 60%; right: 10%; animation-delay: -10s; }
-    .orb-3 { width: 250px; height: 250px; background: var(--secondary); bottom: 10%; left: 30%; animation-delay: -5s; }
-    
-    @keyframes float {
-      0%, 100% { transform: translate(0, 0) scale(1); }
-      33% { transform: translate(30px, -30px) scale(1.05); }
-      66% { transform: translate(-20px, 20px) scale(0.95); }
-    }
-    
-    /* Navigation */
-    nav {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      padding: 1rem 2rem;
-      background: rgba(15,23,42,0.8);
-      backdrop-filter: blur(20px);
-      border-bottom: 1px solid var(--glass-border);
-      z-index: 1000;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    
-    .logo {
-      font-size: 1.5rem;
-      font-weight: 700;
-      background: linear-gradient(135deg, var(--primary), var(--accent));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-    
-    .nav-links { display: flex; gap: 2rem; list-style: none; }
-    
-    .nav-links a {
-      color: #94a3b8;
-      text-decoration: none;
-      font-weight: 500;
-      transition: all 0.3s;
-      position: relative;
-    }
-    
-    .nav-links a:hover { color: #fff; }
-    
-    .nav-links a::after {
-      content: '';
-      position: absolute;
-      bottom: -5px; left: 0;
-      width: 0; height: 2px;
-      background: linear-gradient(90deg, var(--primary), var(--accent));
-      transition: width 0.3s;
-    }
-    
-    .nav-links a:hover::after { width: 100%; }
-    
-    /* Glass Card */
-    .glass {
-      background: var(--glass);
-      backdrop-filter: blur(20px);
-      border: 1px solid var(--glass-border);
-      border-radius: 20px;
-    }
-    
-    /* Hero Section */
-    .hero {
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 6rem 2rem 2rem;
-      position: relative;
-    }
-    
-    .hero-content {
-      text-align: center;
-      max-width: 800px;
-    }
-    
-    .hero-badge {
-      display: inline-block;
-      padding: 0.5rem 1.5rem;
-      background: linear-gradient(135deg, rgba(99,102,241,0.2), rgba(6,182,212,0.2));
-      border: 1px solid var(--glass-border);
-      border-radius: 50px;
-      font-size: 0.9rem;
-      margin-bottom: 1.5rem;
-      animation: fadeInUp 0.8s ease;
-    }
-    
-    .hero h1 {
-      font-size: clamp(2.5rem, 6vw, 4.5rem);
-      font-weight: 800;
-      margin-bottom: 0.5rem;
-      background: linear-gradient(135deg, #fff 0%, #94a3b8 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      animation: fadeInUp 0.8s ease 0.2s both;
-    }
-    
-    .hero h2 {
-      font-size: clamp(1.2rem, 3vw, 1.8rem);
-      font-weight: 400;
-      color: #94a3b8;
-      margin-bottom: 2rem;
-      animation: fadeInUp 0.8s ease 0.4s both;
-    }
-    
-    .hero h2 span {
-      background: linear-gradient(135deg, var(--primary), var(--accent));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      font-weight: 600;
-    }
-    
-    .hero-buttons {
-      display: flex;
-      gap: 1rem;
-      justify-content: center;
-      flex-wrap: wrap;
-      animation: fadeInUp 0.8s ease 0.6s both;
-    }
-    
-    .btn {
-      padding: 1rem 2rem;
-      border-radius: 12px;
-      font-weight: 600;
-      text-decoration: none;
-      transition: all 0.3s;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
-    
-    .btn-primary {
-      background: linear-gradient(135deg, var(--primary), var(--secondary));
-      color: #fff;
-      box-shadow: 0 10px 40px rgba(99,102,241,0.3);
-    }
-    
-    .btn-primary:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 15px 50px rgba(99,102,241,0.4);
-    }
-    
-    .btn-secondary {
-      background: var(--glass);
-      border: 1px solid var(--glass-border);
-      color: #fff;
-    }
-    
-    .btn-secondary:hover {
-      background: rgba(255,255,255,0.1);
-      transform: translateY(-3px);
-    }
-    
-    /* Social Links */
-    .social-links {
-      display: flex;
-      gap: 1rem;
-      justify-content: center;
-      margin-top: 2rem;
-      animation: fadeInUp 0.8s ease 0.8s both;
-    }
-    
-    .social-links a {
-      width: 50px; height: 50px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border-radius: 12px;
-      background: var(--glass);
-      border: 1px solid var(--glass-border);
-      color: #94a3b8;
-      font-size: 1.2rem;
-      transition: all 0.3s;
-    }
-    
-    .social-links a:hover {
-      color: #fff;
-      background: linear-gradient(135deg, var(--primary), var(--accent));
-      transform: translateY(-5px);
-    }
-    
-    @keyframes fadeInUp {
-      from { opacity: 0; transform: translateY(30px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    
-    /* Sections */
-    section {
-      padding: 5rem 2rem;
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-    
-    .section-title {
-      text-align: center;
-      margin-bottom: 3rem;
-    }
-    
-    .section-title h2 {
-      font-size: 2.5rem;
-      font-weight: 700;
-      margin-bottom: 0.5rem;
-    }
-    
-    .section-title p { color: #64748b; }
-    
-    /* Skills */
-    .skills-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 1.5rem;
-    }
-    
-    .skill-card {
-      padding: 2rem;
-      transition: all 0.3s;
-    }
-    
-    .skill-card:hover {
-      transform: translateY(-10px);
-      border-color: var(--primary);
-    }
-    
-    .skill-card h3 {
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-      margin-bottom: 1.5rem;
-      font-size: 1.2rem;
-    }
-    
-    .skill-card h3 i {
-      width: 40px; height: 40px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: linear-gradient(135deg, var(--primary), var(--accent));
-      border-radius: 10px;
-    }
-    
-    .skill-tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.5rem;
-    }
-    
-    .skill-tag {
-      padding: 0.4rem 1rem;
-      background: rgba(99,102,241,0.1);
-      border: 1px solid rgba(99,102,241,0.2);
-      border-radius: 20px;
-      font-size: 0.85rem;
-      color: #c7d2fe;
-    }
-    
-    /* Experience */
-    .timeline {
-      position: relative;
-      padding-left: 2rem;
-    }
-    
-    .timeline::before {
-      content: '';
-      position: absolute;
-      left: 0; top: 0;
-      width: 2px; height: 100%;
-      background: linear-gradient(180deg, var(--primary), var(--accent), var(--secondary));
-    }
-    
-    .timeline-item {
-      position: relative;
-      padding: 2rem;
-      margin-bottom: 1.5rem;
-      margin-left: 1rem;
-    }
-    
-    .timeline-item::before {
-      content: '';
-      position: absolute;
-      left: -1.6rem; top: 2.5rem;
-      width: 12px; height: 12px;
-      background: var(--primary);
-      border-radius: 50%;
-      box-shadow: 0 0 20px var(--primary);
-    }
-    
-    .timeline-date {
-      display: inline-block;
-      padding: 0.3rem 1rem;
-      background: linear-gradient(135deg, rgba(99,102,241,0.2), rgba(6,182,212,0.2));
-      border-radius: 20px;
-      font-size: 0.85rem;
-      margin-bottom: 1rem;
-    }
-    
-    .timeline-item h3 { font-size: 1.3rem; margin-bottom: 0.3rem; }
-    .timeline-item h4 { color: var(--accent); margin-bottom: 1rem; font-weight: 500; }
-    .timeline-item ul { list-style: none; }
-    .timeline-item li { padding: 0.3rem 0; padding-left: 1.5rem; position: relative; color: #94a3b8; }
-    .timeline-item li::before { content: '▹'; position: absolute; left: 0; color: var(--accent); }
-    
-    /* Projects */
-    .projects-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-      gap: 1.5rem;
-    }
-    
-    .project-card {
-      overflow: hidden;
-      transition: all 0.3s;
-    }
-    
-    .project-card:hover {
-      transform: translateY(-10px);
-      border-color: var(--primary);
-    }
-    
-    .project-img {
-      height: 200px;
-      background: linear-gradient(135deg, var(--primary), var(--accent));
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 4rem;
-    }
-    
-    .project-content { padding: 1.5rem; }
-    .project-content h3 { margin-bottom: 0.5rem; }
-    .project-content p { color: #94a3b8; margin-bottom: 1rem; font-size: 0.95rem; }
-    
-    .project-links { display: flex; gap: 1rem; }
-    
-    .project-links a {
-      padding: 0.5rem 1rem;
-      background: var(--glass);
-      border: 1px solid var(--glass-border);
-      border-radius: 8px;
-      color: #fff;
-      text-decoration: none;
-      font-size: 0.9rem;
-      transition: all 0.3s;
-    }
-    
-    .project-links a:hover { background: var(--primary); }
-    
-    /* Contact */
-    .contact-content {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 1.5rem;
-    }
-    
-    .contact-card {
-      padding: 2rem;
-      text-align: center;
-      transition: all 0.3s;
-    }
-    
-    .contact-card:hover {
-      transform: translateY(-5px);
-      border-color: var(--primary);
-    }
-    
-    .contact-card i {
-      font-size: 2rem;
-      margin-bottom: 1rem;
-      background: linear-gradient(135deg, var(--primary), var(--accent));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-    
-    .contact-card h3 { margin-bottom: 0.5rem; }
-    .contact-card p { color: #94a3b8; }
-    .contact-card a { color: var(--accent); text-decoration: none; }
-    
-    /* Footer */
-    footer {
-      text-align: center;
-      padding: 2rem;
-      border-top: 1px solid var(--glass-border);
-      color: #64748b;
-    }
-    
-    /* Responsive */
-    @media (max-width: 768px) {
-      .nav-links { display: none; }
-      .hero { padding-top: 5rem; }
-      .timeline { padding-left: 1rem; }
-      .timeline-item { margin-left: 0.5rem; padding: 1.5rem; }
-    }
+    *{margin:0;padding:0;box-sizing:border-box}
+    :root{--p:#6366f1;--s:#8b5cf6;--a:#06b6d4;--a2:#10b981;--d:#0f172a;--dk:#020617;--g:rgba(255,255,255,0.03);--gb:rgba(255,255,255,0.08);--t:#e2e8f0;--tm:#94a3b8}
+    html{scroll-behavior:smooth}
+    body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--dk);color:var(--t);line-height:1.7;overflow-x:hidden}
+    .bg{position:fixed;inset:0;z-index:-1;background:linear-gradient(135deg,var(--dk),#0c1222,var(--dk))}
+    .grid{position:fixed;inset:0;background-image:linear-gradient(rgba(99,102,241,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(99,102,241,0.03) 1px,transparent 1px);background-size:50px 50px;z-index:-1}
+    .orb{position:fixed;border-radius:50%;filter:blur(100px);opacity:0.4;animation:f 25s ease-in-out infinite;pointer-events:none}
+    .o1{width:500px;height:500px;background:linear-gradient(135deg,var(--p),var(--s));top:5%;left:5%}
+    .o2{width:400px;height:400px;background:linear-gradient(135deg,var(--a),var(--a2));top:50%;right:5%;animation-delay:-12s}
+    .o3{width:350px;height:350px;background:linear-gradient(135deg,var(--s),var(--p));bottom:10%;left:20%;animation-delay:-6s}
+    @keyframes f{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(30px,-30px) scale(1.05)}}
+    nav{position:fixed;top:0;left:0;right:0;padding:1rem 2rem;background:rgba(2,6,23,0.85);backdrop-filter:blur(20px);border-bottom:1px solid var(--gb);z-index:1000;display:flex;justify-content:space-between;align-items:center}
+    .logo{font-size:1.8rem;font-weight:800;background:linear-gradient(135deg,var(--p),var(--a));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+    .nav-l{display:flex;gap:2rem;list-style:none}
+    .nav-l a{color:var(--tm);text-decoration:none;font-weight:500;transition:0.3s}
+    .nav-l a:hover{color:#fff}
+    .glass{background:var(--g);backdrop-filter:blur(20px);border:1px solid var(--gb);border-radius:20px}
+    .hero{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:8rem 2rem 4rem;text-align:center}
+    .hero-c{max-width:900px}
+    .badge{display:inline-flex;align-items:center;gap:0.5rem;padding:0.6rem 1.5rem;background:linear-gradient(135deg,rgba(99,102,241,0.15),rgba(6,182,212,0.15));border:1px solid rgba(99,102,241,0.3);border-radius:50px;font-size:0.9rem;color:var(--a);margin-bottom:2rem;animation:up .8s ease}
+    .dot{width:8px;height:8px;background:var(--a2);border-radius:50%;animation:pulse 2s infinite}
+    @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(1.2)}}
+    .hero h1{font-size:clamp(2.5rem,7vw,4.5rem);font-weight:800;letter-spacing:-2px;background:linear-gradient(135deg,#fff,#94a3b8,#fff);background-size:200% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:up .8s ease .2s both,shine 5s linear infinite}
+    @keyframes shine{to{background-position:200% center}}
+    .hero h2{font-size:clamp(1.2rem,3vw,1.8rem);color:var(--tm);margin:1rem 0;animation:up .8s ease .4s both}
+    .hero h2 span{background:linear-gradient(135deg,var(--p),var(--a));-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-weight:600}
+    .hero p{color:var(--tm);max-width:600px;margin:0 auto 2rem;animation:up .8s ease .5s both}
+    .btns{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;animation:up .8s ease .6s both}
+    .btn{padding:1rem 2rem;border-radius:14px;font-weight:600;text-decoration:none;transition:0.3s;display:inline-flex;align-items:center;gap:0.5rem;border:none;cursor:pointer}
+    .btn-p{background:linear-gradient(135deg,var(--p),var(--s));color:#fff;box-shadow:0 10px 40px rgba(99,102,241,0.4)}
+    .btn-p:hover{transform:translateY(-4px);box-shadow:0 20px 50px rgba(99,102,241,0.5)}
+    .btn-s{background:var(--g);border:1px solid var(--gb);color:#fff}
+    .btn-s:hover{background:rgba(255,255,255,0.1);transform:translateY(-4px)}
+    .social{display:flex;gap:1rem;justify-content:center;margin-top:2rem;animation:up .8s ease .8s both}
+    .social a{width:55px;height:55px;display:flex;align-items:center;justify-content:center;border-radius:16px;background:var(--g);border:1px solid var(--gb);color:var(--tm);font-size:1.3rem;transition:0.3s}
+    .social a:hover{color:#fff;transform:translateY(-5px) scale(1.05)}
+    .social a:hover.li{background:linear-gradient(135deg,#0077b5,#00a0dc)}
+    .social a:hover.gh{background:linear-gradient(135deg,#333,#6e5494)}
+    .social a:hover.wa{background:linear-gradient(135deg,#25d366,#128c7e)}
+    .social a:hover.em{background:linear-gradient(135deg,var(--p),var(--a))}
+    @keyframes up{from{opacity:0;transform:translateY(40px)}to{opacity:1;transform:translateY(0)}}
+    .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem;max-width:900px;margin:-2rem auto 0;padding:0 2rem;animation:up .8s ease 1s both}
+    .stat{padding:2rem 1.5rem;text-align:center;transition:0.3s}
+    .stat:hover{transform:translateY(-5px);border-color:var(--p)}
+    .stat-n{font-size:2.5rem;font-weight:800;background:linear-gradient(135deg,var(--p),var(--a));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+    .stat-l{color:var(--tm);font-size:0.9rem;margin-top:0.5rem}
+    section{padding:5rem 2rem;max-width:1200px;margin:0 auto}
+    .sec-h{text-align:center;margin-bottom:3rem}
+    .sec-b{display:inline-block;padding:0.5rem 1.2rem;background:linear-gradient(135deg,rgba(99,102,241,0.1),rgba(6,182,212,0.1));border:1px solid rgba(99,102,241,0.2);border-radius:50px;font-size:0.85rem;color:var(--a);margin-bottom:1rem;text-transform:uppercase;letter-spacing:1px}
+    .sec-h h2{font-size:2.5rem;font-weight:700;margin-bottom:0.5rem}
+    .sec-h p{color:var(--tm)}
+    .about{display:grid;grid-template-columns:1fr 1.5fr;gap:3rem;align-items:center}
+    .about-img{position:relative}
+    .about-wrap{border-radius:20px;overflow:hidden;background:linear-gradient(135deg,var(--p),var(--a));padding:4px}
+    .about-in{background:var(--dk);border-radius:18px;padding:3rem;display:flex;align-items:center;justify-content:center;min-height:300px}
+    .about-av{font-size:7rem;background:linear-gradient(135deg,var(--p),var(--a));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+    .about-txt h3{font-size:1.6rem;margin-bottom:1rem}
+    .about-txt p{color:var(--tm);margin-bottom:1rem}
+    .highlights{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-top:1.5rem}
+    .hl{display:flex;align-items:center;gap:0.75rem;padding:1rem;background:var(--g);border:1px solid var(--gb);border-radius:12px}
+    .hl i{color:var(--a)}
+    .skills{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1.5rem}
+    .skill{padding:2rem;transition:0.4s;position:relative;overflow:hidden}
+    .skill::before{content:'';position:absolute;top:0;left:0;width:100%;height:3px;background:linear-gradient(90deg,var(--p),var(--a));transform:scaleX(0);transition:0.4s}
+    .skill:hover::before{transform:scaleX(1)}
+    .skill:hover{transform:translateY(-8px);border-color:rgba(99,102,241,0.3)}
+    .skill-i{width:55px;height:55px;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,rgba(99,102,241,0.2),rgba(6,182,212,0.2));border-radius:14px;margin-bottom:1.5rem;font-size:1.3rem}
+    .skill h3{font-size:1.2rem;margin-bottom:1rem}
+    .tags{display:flex;flex-wrap:wrap;gap:0.5rem}
+    .tag{padding:0.4rem 0.9rem;background:rgba(99,102,241,0.08);border:1px solid rgba(99,102,241,0.15);border-radius:20px;font-size:0.82rem;color:#c7d2fe;transition:0.3s}
+    .tag:hover{background:rgba(99,102,241,0.2);transform:scale(1.05)}
+    .tl{position:relative;padding-left:2.5rem}
+    .tl::before{content:'';position:absolute;left:0;top:0;width:3px;height:100%;background:linear-gradient(180deg,var(--p),var(--a),var(--s),var(--a2));border-radius:3px}
+    .tl-item{position:relative;padding:2rem;margin-bottom:1.5rem;transition:0.4s}
+    .tl-item:hover{transform:translateX(10px);border-color:var(--p)}
+    .tl-item::before{content:'';position:absolute;left:-2.9rem;top:2.5rem;width:14px;height:14px;background:linear-gradient(135deg,var(--p),var(--a));border-radius:50%;box-shadow:0 0 20px var(--p)}
+    .tl-h{display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:1rem;margin-bottom:1rem}
+    .tl-d{display:inline-flex;align-items:center;gap:0.5rem;padding:0.4rem 1rem;background:linear-gradient(135deg,rgba(99,102,241,0.15),rgba(6,182,212,0.15));border-radius:20px;font-size:0.85rem;color:var(--a)}
+    .tl-item h3{font-size:1.3rem;margin-bottom:0.3rem}
+    .tl-item h4{color:var(--a);margin-bottom:1rem;font-weight:500}
+    .tl-item ul{list-style:none}
+    .tl-item li{padding:0.4rem 0 0.4rem 1.5rem;position:relative;color:var(--tm);font-size:0.95rem}
+    .tl-item li::before{content:'';position:absolute;left:0;top:0.9rem;width:6px;height:6px;background:var(--a);border-radius:50%}
+    .proj{display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:1.5rem}
+    .proj-c{overflow:hidden;transition:0.4s}
+    .proj-c:hover{transform:translateY(-10px);border-color:var(--p)}
+    .proj-img{height:180px;display:flex;align-items:center;justify-content:center;font-size:4rem;position:relative}
+    .proj-badge{position:absolute;top:1rem;right:1rem;padding:0.3rem 0.8rem;background:rgba(0,0,0,0.5);backdrop-filter:blur(10px);border-radius:15px;font-size:0.75rem}
+    .proj-ct{padding:1.5rem}
+    .proj-ct h3{font-size:1.2rem;margin-bottom:0.5rem}
+    .proj-ct p{color:var(--tm);margin-bottom:1rem;font-size:0.9rem}
+    .proj-tech{display:flex;flex-wrap:wrap;gap:0.4rem;margin-bottom:1rem}
+    .proj-tech span{padding:0.25rem 0.6rem;background:rgba(99,102,241,0.1);border-radius:12px;font-size:0.75rem;color:var(--a)}
+    .proj-links a{padding:0.6rem 1rem;background:var(--g);border:1px solid var(--gb);border-radius:8px;color:#fff;text-decoration:none;font-size:0.85rem;transition:0.3s;display:inline-flex;align-items:center;gap:0.4rem}
+    .proj-links a:hover{background:linear-gradient(135deg,var(--p),var(--a))}
+    .certs{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.5rem}
+    .cert{padding:1.5rem;display:flex;gap:1.2rem;align-items:flex-start;transition:0.3s}
+    .cert:hover{transform:translateY(-5px);border-color:var(--p)}
+    .cert-i{width:50px;height:50px;min-width:50px;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,rgba(99,102,241,0.2),rgba(6,182,212,0.2));border-radius:14px;font-size:1.2rem}
+    .cert-c h4{font-size:1.05rem;margin-bottom:0.3rem}
+    .cert-c p{color:var(--tm);font-size:0.85rem;margin-bottom:0.2rem}
+    .cert-c span{color:var(--a);font-size:0.8rem}
+    .edu{padding:2.5rem;display:flex;gap:2rem;align-items:center;max-width:700px;margin:0 auto}
+    .edu-i{width:80px;height:80px;min-width:80px;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,var(--p),var(--a));border-radius:20px;font-size:2rem}
+    .edu-c h3{font-size:1.4rem;margin-bottom:0.3rem}
+    .edu-c h4{color:var(--a);margin-bottom:0.5rem;font-weight:500}
+    .edu-c p{color:var(--tm);font-size:0.95rem}
+    .contact-w{display:grid;grid-template-columns:1fr 1fr;gap:2.5rem}
+    .contact-info h3{font-size:1.8rem;margin-bottom:1rem}
+    .contact-info>p{color:var(--tm);margin-bottom:2rem}
+    .contact-cards{display:flex;flex-direction:column;gap:1rem}
+    .cc{padding:1.2rem;display:flex;align-items:center;gap:1.2rem;transition:0.3s}
+    .cc:hover{transform:translateX(10px);border-color:var(--p)}
+    .cc i{font-size:1.3rem;width:45px;height:45px;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,rgba(99,102,241,0.2),rgba(6,182,212,0.2));border-radius:12px}
+    .cc-c h4{margin-bottom:0.2rem;font-size:0.95rem}
+    .cc-c a{color:var(--a);text-decoration:none}
+    .cc-c a:hover{color:#fff}
+    .cc-c p{color:var(--tm);font-size:0.85rem}
+    .cf{padding:2rem}
+    .fg{margin-bottom:1.2rem}
+    .fg label{display:block;margin-bottom:0.4rem;font-weight:500;font-size:0.95rem}
+    .fg input,.fg textarea{width:100%;padding:0.9rem 1rem;background:rgba(255,255,255,0.03);border:1px solid var(--gb);border-radius:10px;color:#fff;font-size:1rem;transition:0.3s;font-family:inherit}
+    .fg input:focus,.fg textarea:focus{outline:none;border-color:var(--p)}
+    .fg textarea{min-height:100px;resize:vertical}
+    footer{text-align:center;padding:2.5rem 2rem;border-top:1px solid var(--gb)}
+    .f-logo{font-size:1.8rem;font-weight:800;background:linear-gradient(135deg,var(--p),var(--a));-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:1rem}
+    .f-links{display:flex;justify-content:center;gap:2rem;margin:1rem 0;flex-wrap:wrap}
+    .f-links a{color:var(--tm);text-decoration:none;transition:0.3s}
+    .f-links a:hover{color:#fff}
+    .f-social{display:flex;justify-content:center;gap:1rem;margin:1rem 0}
+    .f-social a{width:40px;height:40px;display:flex;align-items:center;justify-content:center;background:var(--g);border:1px solid var(--gb);border-radius:10px;color:var(--tm);transition:0.3s}
+    .f-social a:hover{color:#fff;transform:translateY(-3px);border-color:var(--p)}
+    .f-copy{color:var(--tm);font-size:0.85rem}
+    .scroll-top{position:fixed;bottom:2rem;right:2rem;width:50px;height:50px;background:linear-gradient(135deg,var(--p),var(--a));border-radius:14px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:1.2rem;cursor:pointer;opacity:0;visibility:hidden;transition:0.3s;z-index:999;border:none}
+    .scroll-top.visible{opacity:1;visibility:visible}
+    .scroll-top:hover{transform:translateY(-5px)}
+    @media(max-width:1024px){.about,.contact-w{grid-template-columns:1fr}.about-img{order:-1;max-width:300px;margin:0 auto}}
+    @media(max-width:768px){.nav-l{display:none}.stats{grid-template-columns:repeat(2,1fr)}.tl{padding-left:1.5rem}.tl-item::before{left:-1.8rem;width:10px;height:10px}.proj{grid-template-columns:1fr}.edu{flex-direction:column;text-align:center}section{padding:4rem 1.5rem}}
+    @media(max-width:480px){.stats{gap:1rem}.stat{padding:1.2rem}.stat-n{font-size:2rem}.highlights{grid-template-columns:1fr}}
   </style>
 </head>
 <body>
-  <div class="bg-animation"></div>
-  <div class="orb orb-1"></div>
-  <div class="orb orb-2"></div>
-  <div class="orb orb-3"></div>
+  <div class="bg"></div>
+  <div class="grid"></div>
+  <div class="orb o1"></div>
+  <div class="orb o2"></div>
+  <div class="orb o3"></div>
   
   <nav>
-    <div class="logo">MS</div>
-    <ul class="nav-links">
+    <div class="logo">&lt;MS/&gt;</div>
+    <ul class="nav-l">
       <li><a href="#home">Home</a></li>
+      <li><a href="#about">About</a></li>
       <li><a href="#skills">Skills</a></li>
       <li><a href="#experience">Experience</a></li>
       <li><a href="#projects">Projects</a></li>
+      <li><a href="#certifications">Certificates</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul>
   </nav>
   
   <section class="hero" id="home">
-    <div class="hero-content">
-      <div class="hero-badge">✨ Available for opportunities</div>
+    <div class="hero-c">
+      <div class="badge"><span class="dot"></span> Available for opportunities</div>
       <h1>Mahmoud Shalma</h1>
       <h2>Senior <span>PHP/Laravel Developer</span> & Team Lead</h2>
-      <div class="hero-buttons">
-        <a href="#contact" class="btn btn-primary"><i class="fas fa-envelope"></i> Get in Touch</a>
-        <a href="#projects" class="btn btn-secondary"><i class="fas fa-folder"></i> View Projects</a>
+      <p>Architecting scalable web applications, e-commerce platforms, and enterprise systems with 7+ years of experience in building high-performance solutions.</p>
+      <div class="btns">
+        <a href="#contact" class="btn btn-p"><i class="fas fa-paper-plane"></i> Let's Talk</a>
+        <a href="#projects" class="btn btn-s"><i class="fas fa-briefcase"></i> View Work</a>
       </div>
-      <div class="social-links">
-        <a href="https://linkedin.com/in/mahmoud-shalma" target="_blank"><i class="fab fa-linkedin-in"></i></a>
-        <a href="https://github.com/MahmoudShalma" target="_blank"><i class="fab fa-github"></i></a>
-        <a href="mailto:mahmoud.shalma@outlook.com"><i class="fas fa-envelope"></i></a>
-        <a href="tel:+201156526691"><i class="fas fa-phone"></i></a>
-        <a href="https://wa.me/201013832532" target="_blank"><i class="fab fa-whatsapp"></i></a>
+      <div class="social">
+        <a href="https://linkedin.com/in/mahmoud-shalma" target="_blank" class="li" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+        <a href="https://github.com/MahmoudShalma" target="_blank" class="gh" title="GitHub"><i class="fab fa-github"></i></a>
+        <a href="https://wa.me/201013832532" target="_blank" class="wa" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+        <a href="mailto:mahmoud.shalma@outlook.com" class="em" title="Email"><i class="fas fa-envelope"></i></a>
+      </div>
+    </div>
+  </section>
+  
+  <div class="stats">
+    <div class="stat glass"><div class="stat-n">7+</div><div class="stat-l">Years Experience</div></div>
+    <div class="stat glass"><div class="stat-n">50+</div><div class="stat-l">Projects Completed</div></div>
+    <div class="stat glass"><div class="stat-n">100+</div><div class="stat-l">Students Mentored</div></div>
+    <div class="stat glass"><div class="stat-n">15+</div><div class="stat-l">Technologies</div></div>
+  </div>
+  
+  <section id="about">
+    <div class="sec-h"><span class="sec-b">About Me</span><h2>Know Me Better</h2><p>Passionate about building exceptional digital experiences</p></div>
+    <div class="about">
+      <div class="about-img">
+        <div class="about-wrap"><div class="about-in"><div class="about-av"><i class="fas fa-code"></i></div></div></div>
+      </div>
+      <div class="about-txt">
+        <h3>Hi, I'm Mahmoud Shalma 👋</h3>
+        <p>A results-driven <strong>Senior PHP/Laravel Developer</strong> and <strong>Team Lead</strong> based in Cairo, Egypt. With over 7 years of hands-on experience, I specialize in architecting scalable web applications, e-commerce platforms, and enterprise systems.</p>
+        <p>I thrive on solving complex technical challenges and transforming business requirements into elegant, efficient solutions. My expertise spans from building multi-tenant architectures and ERP integrations to implementing AI-powered features in production systems.</p>
+        <p>As a former Udacity mentor, I'm passionate about knowledge sharing and helping developers grow.</p>
+        <div class="highlights">
+          <div class="hl"><i class="fas fa-map-marker-alt"></i><span>Cairo, Egypt</span></div>
+          <div class="hl"><i class="fas fa-briefcase"></i><span>Team Lead @ Croco IT</span></div>
+          <div class="hl"><i class="fas fa-graduation-cap"></i><span>CS Graduate</span></div>
+          <div class="hl"><i class="fas fa-language"></i><span>Arabic & English</span></div>
+        </div>
       </div>
     </div>
   </section>
   
   <section id="skills">
-    <div class="section-title">
-      <h2>Technical Skills</h2>
-      <p>Technologies I work with</p>
-    </div>
-    <div class="skills-grid">
-      <div class="skill-card glass">
-        <h3><i class="fas fa-server"></i> Backend Development</h3>
-        <div class="skill-tags">
-          <span class="skill-tag">PHP 8.x</span>
-          <span class="skill-tag">Laravel</span>
-          <span class="skill-tag">REST APIs</span>
-          <span class="skill-tag">Horizon</span>
-          <span class="skill-tag">Telescope</span>
-          <span class="skill-tag">RabbitMQ</span>
-        </div>
+    <div class="sec-h"><span class="sec-b">My Expertise</span><h2>Technical Skills</h2><p>Technologies and tools I work with daily</p></div>
+    <div class="skills">
+      <div class="skill glass">
+        <div class="skill-i"><i class="fas fa-server"></i></div>
+        <h3>Backend Development</h3>
+        <div class="tags"><span class="tag">PHP 8.x</span><span class="tag">Laravel</span><span class="tag">REST APIs</span><span class="tag">Horizon</span><span class="tag">Telescope</span><span class="tag">Sanctum</span><span class="tag">Queue Jobs</span></div>
       </div>
-      <div class="skill-card glass">
-        <h3><i class="fas fa-shopping-cart"></i> E-commerce</h3>
-        <div class="skill-tags">
-          <span class="skill-tag">Shopify</span>
-          <span class="skill-tag">Magento 2</span>
-          <span class="skill-tag">Jumia</span>
-          <span class="skill-tag">Noon</span>
-          <span class="skill-tag">ERPNext</span>
-        </div>
+      <div class="skill glass">
+        <div class="skill-i"><i class="fas fa-shopping-cart"></i></div>
+        <h3>E-commerce & Integrations</h3>
+        <div class="tags"><span class="tag">Shopify API</span><span class="tag">Magento 2</span><span class="tag">Jumia</span><span class="tag">Noon</span><span class="tag">Talabat</span><span class="tag">ERPNext</span><span class="tag">Payment Gateways</span></div>
       </div>
-      <div class="skill-card glass">
-        <h3><i class="fas fa-database"></i> Database</h3>
-        <div class="skill-tags">
-          <span class="skill-tag">MySQL</span>
-          <span class="skill-tag">Redis</span>
-          <span class="skill-tag">Query Optimization</span>
-          <span class="skill-tag">Multi-tenant</span>
-        </div>
+      <div class="skill glass">
+        <div class="skill-i"><i class="fas fa-database"></i></div>
+        <h3>Database & Caching</h3>
+        <div class="tags"><span class="tag">MySQL</span><span class="tag">Redis</span><span class="tag">Query Optimization</span><span class="tag">Indexing</span><span class="tag">Multi-tenant DB</span></div>
       </div>
-      <div class="skill-card glass">
-        <h3><i class="fas fa-code"></i> Frontend</h3>
-        <div class="skill-tags">
-          <span class="skill-tag">JavaScript</span>
-          <span class="skill-tag">jQuery</span>
-          <span class="skill-tag">HTML5</span>
-          <span class="skill-tag">CSS3</span>
-          <span class="skill-tag">Bootstrap</span>
-        </div>
+      <div class="skill glass">
+        <div class="skill-i"><i class="fas fa-network-wired"></i></div>
+        <h3>Architecture & DevOps</h3>
+        <div class="tags"><span class="tag">Multi-tenant</span><span class="tag">RabbitMQ</span><span class="tag">CI/CD</span><span class="tag">Git</span><span class="tag">Docker</span><span class="tag">SOA</span></div>
+      </div>
+      <div class="skill glass">
+        <div class="skill-i"><i class="fas fa-code"></i></div>
+        <h3>Frontend Development</h3>
+        <div class="tags"><span class="tag">JavaScript</span><span class="tag">jQuery</span><span class="tag">AJAX</span><span class="tag">HTML5</span><span class="tag">CSS3</span><span class="tag">Bootstrap</span></div>
+      </div>
+      <div class="skill glass">
+        <div class="skill-i"><i class="fas fa-robot"></i></div>
+        <h3>AI & Innovation</h3>
+        <div class="tags"><span class="tag">AI Integration</span><span class="tag">Laravel Boost MCP</span><span class="tag">Prompt Engineering</span><span class="tag">WhatsApp API</span><span class="tag">RFID</span></div>
       </div>
     </div>
   </section>
   
   <section id="experience">
-    <div class="section-title">
-      <h2>Experience</h2>
-      <p>My professional journey</p>
-    </div>
-    <div class="timeline">
-      <div class="timeline-item glass">
-        <span class="timeline-date">Aug 2024 - Present</span>
-        <h3>Team Lead – PHP/Laravel</h3>
-        <h4>Croco IT</h4>
+    <div class="sec-h"><span class="sec-b">Career Path</span><h2>Work Experience</h2><p>My professional journey in software development</p></div>
+    <div class="tl">
+      <div class="tl-item glass">
+        <div class="tl-h"><div><h3>Team Lead – PHP/Laravel</h3><h4><i class="fas fa-building"></i> Croco IT</h4></div><span class="tl-d"><i class="far fa-calendar"></i> Aug 2024 - Present</span></div>
         <ul>
-          <li>Lead backend team and manage technical architecture decisions</li>
-          <li>Architected 2Loyal loyalty platform with FIFO points engine</li>
-          <li>Built ERPNext integrations with Jumia, Noon, Talabat marketplaces</li>
+          <li>Leading backend development team and making strategic technical architecture decisions</li>
+          <li>Architected 2Loyal loyalty platform with FIFO points engine handling high-volume transactions</li>
+          <li>Built production-ready middleware connecting ERPNext with Jumia, Noon, and Talabat</li>
           <li>Designed multi-tenant RFID middleware with database-per-tenant isolation</li>
-          <li>Enhanced Conte AI platform with Shopify integration</li>
-          <li>Implemented Redis caching and RabbitMQ for performance optimization</li>
-          <li>Mentoring team members on Laravel best practices</li>
+          <li>Enhanced Conte AI platform with Shopify integration and intelligent file processing</li>
+          <li>Implemented Redis caching strategies and RabbitMQ for performance optimization</li>
+          <li>Mentoring team members and conducting code reviews</li>
         </ul>
       </div>
-      <div class="timeline-item glass">
-        <span class="timeline-date">Jun 2023 - Aug 2024</span>
-        <h3>Senior Web Developer</h3>
-        <h4>LINRCO-Egypt</h4>
+      <div class="tl-item glass">
+        <div class="tl-h"><div><h3>Senior Web Developer</h3><h4><i class="fas fa-building"></i> LINRCO-Egypt</h4></div><span class="tl-d"><i class="far fa-calendar"></i> Jun 2023 - Aug 2024</span></div>
         <ul>
-          <li>Developed enterprise-level ERP modules for business operations</li>
-          <li>Built RESTful APIs for mobile application backends</li>
-          <li>Implemented complex inventory and order management systems</li>
+          <li>Developed enterprise-level ERP modules for business operations management</li>
+          <li>Built RESTful APIs for mobile application backends with authentication</li>
+          <li>Implemented complex inventory management and order processing systems</li>
           <li>Created reporting modules and data analytics dashboards</li>
-          <li>Optimized database queries and improved application performance</li>
+          <li>Optimized database queries and improved application performance by 40%</li>
         </ul>
       </div>
-      <div class="timeline-item glass">
-        <span class="timeline-date">Oct 2021 - Jun 2023</span>
-        <h3>Backend Developer</h3>
-        <h4>EEC Group</h4>
+      <div class="tl-item glass">
+        <div class="tl-h"><div><h3>Backend Developer</h3><h4><i class="fas fa-building"></i> EEC Group</h4></div><span class="tl-d"><i class="far fa-calendar"></i> Oct 2021 - Jun 2023</span></div>
         <ul>
-          <li>Built internal management systems for construction projects</li>
-          <li>Developed reporting and analytics modules</li>
-          <li>Created resource allocation and project tracking systems</li>
+          <li>Built internal management systems for civil and steel construction projects</li>
+          <li>Developed comprehensive reporting and analytics modules</li>
+          <li>Created resource allocation systems for workforce management</li>
           <li>Maintained and optimized existing Laravel applications</li>
         </ul>
       </div>
-      <div class="timeline-item glass">
-        <span class="timeline-date">Jan 2021 - Oct 2021</span>
-        <h3>Web Developer</h3>
-        <h4>600apps (Remote)</h4>
+      <div class="tl-item glass">
+        <div class="tl-h"><div><h3>Web Developer</h3><h4><i class="fas fa-building"></i> 600apps (Remote)</h4></div><span class="tl-d"><i class="far fa-calendar"></i> Jan 2021 - Oct 2021</span></div>
         <ul>
-          <li>Full-stack development for client projects</li>
-          <li>Built e-commerce platforms with payment integration</li>
-          <li>Developed business management applications</li>
+          <li>Full-stack development for diverse client projects</li>
+          <li>Built e-commerce platforms with secure payment integrations</li>
+          <li>Developed custom business management applications</li>
         </ul>
       </div>
-      <div class="timeline-item glass">
-        <span class="timeline-date">Apr 2018 - Apr 2021</span>
-        <h3>Technical Mentor & Code Reviewer</h3>
-        <h4>Udacity</h4>
+      <div class="tl-item glass">
+        <div class="tl-h"><div><h3>Technical Mentor & Code Reviewer</h3><h4><i class="fas fa-graduation-cap"></i> Udacity</h4></div><span class="tl-d"><i class="far fa-calendar"></i> Apr 2018 - Apr 2021</span></div>
         <ul>
-          <li>Mentored 100+ students through Web Development programs</li>
-          <li>Conducted code reviews ensuring best practices</li>
-          <li>Provided technical guidance on PHP, Laravel & full-stack</li>
+          <li>Mentored 100+ students through Web Development Nanodegree programs</li>
+          <li>Conducted thorough code reviews ensuring best practices</li>
+          <li>Provided technical guidance on PHP, Laravel, and full-stack development</li>
         </ul>
       </div>
     </div>
   </section>
   
   <section id="projects">
-    <div class="section-title">
-      <h2>Featured Projects</h2>
-      <p>Some of my recent work</p>
-    </div>
-    <div class="projects-grid">
-      <div class="project-card glass">
-        <div class="project-img">🏢</div>
-        <div class="project-content">
-          <h3>Al Madina Investment</h3>
-          <p>Corporate website for investment company with modern design and optimized performance.</p>
-          <div class="project-links">
-            <a href="https://almadina-inv.com/" target="_blank"><i class="fas fa-external-link-alt"></i> Live</a>
-          </div>
-        </div>
-      </div>
-      <div class="project-card glass">
-        <div class="project-img">💊</div>
-        <div class="project-content">
+    <div class="sec-h"><span class="sec-b">My Work</span><h2>Featured Projects</h2><p>A selection of projects I've built and contributed to</p></div>
+    <div class="proj">
+      <div class="proj-c glass">
+        <div class="proj-img" style="background:linear-gradient(135deg,#6366f1,#8b5cf6)">💊<span class="proj-badge">E-commerce</span></div>
+        <div class="proj-ct">
           <h3>Al Masry Pharmacy</h3>
-          <p>Full e-commerce platform with shopping cart, online payment integration, product catalog, and order management.</p>
-          <div class="project-links">
-            <a href="https://almasrypharmacy.com/" target="_blank"><i class="fas fa-external-link-alt"></i> Live</a>
-          </div>
+          <p>Full e-commerce platform with shopping cart, online payment integration, product catalog, and order tracking.</p>
+          <div class="proj-tech"><span>Laravel</span><span>MySQL</span><span>Payment API</span><span>Bootstrap</span></div>
+          <div class="proj-links"><a href="https://almasrypharmacy.com/" target="_blank"><i class="fas fa-external-link-alt"></i> Live Site</a></div>
         </div>
       </div>
-      <div class="project-card glass">
-        <div class="project-img">📊</div>
-        <div class="project-content">
+      <div class="proj-c glass">
+        <div class="proj-img" style="background:linear-gradient(135deg,#06b6d4,#10b981)">🏢<span class="proj-badge">Corporate</span></div>
+        <div class="proj-ct">
+          <h3>Al Madina Investment</h3>
+          <p>Modern corporate website for investment company with elegant design and optimized performance.</p>
+          <div class="proj-tech"><span>Laravel</span><span>JavaScript</span><span>CSS3</span><span>SEO</span></div>
+          <div class="proj-links"><a href="https://almadina-inv.com/" target="_blank"><i class="fas fa-external-link-alt"></i> Live Site</a></div>
+        </div>
+      </div>
+      <div class="proj-c glass">
+        <div class="proj-img" style="background:linear-gradient(135deg,#f59e0b,#ef4444)">📊<span class="proj-badge">Enterprise</span></div>
+        <div class="proj-ct">
           <h3>Enterprise ERP System</h3>
-          <p>Complete ERP solution: Sales, Purchases, Inventory, Accounting, HR, Reports & Analytics with role-based access.</p>
-          <div class="project-links">
-            <a href="#"><i class="fas fa-lock"></i> Private</a>
-          </div>
+          <p>Complete ERP: Sales, Purchases, Inventory, Accounting, HR, Reports & Analytics with role-based access.</p>
+          <div class="proj-tech"><span>Laravel</span><span>MySQL</span><span>Redis</span><span>REST API</span></div>
+          <div class="proj-links"><a href="#"><i class="fas fa-lock"></i> Private</a></div>
         </div>
       </div>
-      <div class="project-card glass">
-        <div class="project-img">🎁</div>
-        <div class="project-content">
-          <h3>2Loyal Platform</h3>
-          <p>Enterprise loyalty system with FIFO points engine, Shopify/Magento integrations, and referral system.</p>
-          <div class="project-links">
-            <a href="#"><i class="fas fa-lock"></i> Private</a>
-          </div>
+      <div class="proj-c glass">
+        <div class="proj-img" style="background:linear-gradient(135deg,#ec4899,#8b5cf6)">🎁<span class="proj-badge">SaaS</span></div>
+        <div class="proj-ct">
+          <h3>2Loyal - Loyalty Platform</h3>
+          <p>Enterprise loyalty system with FIFO points, referrals, cashback, Shopify/Magento integrations.</p>
+          <div class="proj-tech"><span>Laravel</span><span>Shopify API</span><span>Magento</span><span>Redis</span></div>
+          <div class="proj-links"><a href="#"><i class="fas fa-lock"></i> Private</a></div>
         </div>
       </div>
-      <div class="project-card glass">
-        <div class="project-img">👥</div>
-        <div class="project-content">
+      <div class="proj-c glass">
+        <div class="proj-img" style="background:linear-gradient(135deg,#14b8a6,#06b6d4)">👥<span class="proj-badge">HR System</span></div>
+        <div class="proj-ct">
           <h3>Recruitment System</h3>
-          <p>Complete hiring platform: job postings, applicant tracking, interview scheduling, and candidate evaluation dashboard.</p>
-          <div class="project-links">
-            <a href="#"><i class="fas fa-lock"></i> Private</a>
-          </div>
+          <p>Complete hiring platform: job postings, applicant tracking, interviews, candidate evaluation.</p>
+          <div class="proj-tech"><span>Laravel</span><span>MySQL</span><span>jQuery</span><span>Bootstrap</span></div>
+          <div class="proj-links"><a href="#"><i class="fas fa-lock"></i> Private</a></div>
         </div>
       </div>
-      <div class="project-card glass">
-        <div class="project-img">🔗</div>
-        <div class="project-content">
+      <div class="proj-c glass">
+        <div class="proj-img" style="background:linear-gradient(135deg,#6366f1,#06b6d4)">🔗<span class="proj-badge">Integration</span></div>
+        <div class="proj-ct">
           <h3>ERP Integration Suite</h3>
           <p>Middleware connecting ERPNext with Jumia, Noon, Talabat - automated stock & order sync.</p>
-          <div class="project-links">
-            <a href="#"><i class="fas fa-lock"></i> Private</a>
-          </div>
+          <div class="proj-tech"><span>Laravel</span><span>ERPNext</span><span>RabbitMQ</span><span>APIs</span></div>
+          <div class="proj-links"><a href="#"><i class="fas fa-lock"></i> Private</a></div>
         </div>
+      </div>
+      <div class="proj-c glass">
+        <div class="proj-img" style="background:linear-gradient(135deg,#8b5cf6,#ec4899)">📡<span class="proj-badge">IoT</span></div>
+        <div class="proj-ct">
+          <h3>RFID Middleware</h3>
+          <p>Multi-tenant RFID device middleware with database-per-tenant architecture and ERPNext integration.</p>
+          <div class="proj-tech"><span>Laravel</span><span>Multi-tenant</span><span>ERPNext</span><span>RFID</span></div>
+          <div class="proj-links"><a href="#"><i class="fas fa-lock"></i> Private</a></div>
+        </div>
+      </div>
+      <div class="proj-c glass">
+        <div class="proj-img" style="background:linear-gradient(135deg,#10b981,#06b6d4)">🤖<span class="proj-badge">AI Platform</span></div>
+        <div class="proj-ct">
+          <h3>Conte AI</h3>
+          <p>AI-powered content platform with Shopify integration, product sync, and image generation.</p>
+          <div class="proj-tech"><span>Laravel</span><span>AI/ML</span><span>Shopify API</span><span>MCP</span></div>
+          <div class="proj-links"><a href="#"><i class="fas fa-lock"></i> Private</a></div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <section id="certifications">
+    <div class="sec-h"><span class="sec-b">Achievements</span><h2>Certifications & Training</h2><p>Continuous learning and professional development</p></div>
+    <div class="certs">
+      <div class="cert glass"><div class="cert-i"><i class="fas fa-chart-line"></i></div><div class="cert-c"><h4>McKinsey Forward Program</h4><p>Leadership, adaptability, problem solving</p><span>McKinsey.org • 2025</span></div></div>
+      <div class="cert glass"><div class="cert-i"><i class="fas fa-users"></i></div><div class="cert-c"><h4>Lead With Impact</h4><p>Technical team leadership & collaboration</p><span>2025</span></div></div>
+      <div class="cert glass"><div class="cert-i"><i class="fas fa-laptop-code"></i></div><div class="cert-c"><h4>PHP Full Stack Development</h4><p>Intensive Training Program</p><span>ITI • 2021</span></div></div>
+      <div class="cert glass"><div class="cert-i"><i class="fas fa-code"></i></div><div class="cert-c"><h4>Web Development Professional</h4><p>Nanodegree Program</p><span>Udacity • 2020</span></div></div>
+      <div class="cert glass"><div class="cert-i"><i class="fab fa-laravel"></i></div><div class="cert-c"><h4>Laravel Web Development</h4><p>PHP, MySQL & Laravel</p><span>Digital Egypt Youth • 2021</span></div></div>
+      <div class="cert glass"><div class="cert-i"><i class="fas fa-lightbulb"></i></div><div class="cert-c"><h4>InnovEgypt Soft Skills</h4><p>Innovation & professional skills</p><span>InnovEgypt</span></div></div>
+    </div>
+  </section>
+  
+  <section id="education">
+    <div class="sec-h"><span class="sec-b">Education</span><h2>Academic Background</h2><p>Foundation of my technical knowledge</p></div>
+    <div class="edu glass">
+      <div class="edu-i"><i class="fas fa-graduation-cap"></i></div>
+      <div class="edu-c">
+        <h3>Bachelor of Computer Science</h3>
+        <h4>Faculty of Computer and Information</h4>
+        <p>Strong foundation in programming, algorithms, data structures, database systems, and software engineering.</p>
+        <p style="margin-top:0.5rem"><i class="far fa-calendar"></i> 2014 - 2018</p>
       </div>
     </div>
   </section>
   
   <section id="contact">
-    <div class="section-title">
-      <h2>Get In Touch</h2>
-      <p>Let's work together</p>
-    </div>
-    <div class="contact-content">
-      <div class="contact-card glass">
-        <i class="fas fa-envelope"></i>
-        <h3>Email</h3>
-        <p><a href="mailto:mahmoud.shalma@outlook.com">mahmoud.shalma@outlook.com</a></p>
+    <div class="sec-h"><span class="sec-b">Get In Touch</span><h2>Let's Work Together</h2><p>Have a project in mind? Let's discuss how I can help</p></div>
+    <div class="contact-w">
+      <div class="contact-info">
+        <h3>Contact Information</h3>
+        <p>Feel free to reach out through any of these channels. I'm always open to discussing new projects and opportunities.</p>
+        <div class="contact-cards">
+          <div class="cc glass"><i class="fas fa-envelope"></i><div class="cc-c"><h4>Email</h4><a href="mailto:mahmoud.shalma@outlook.com">mahmoud.shalma@outlook.com</a></div></div>
+          <div class="cc glass"><i class="fas fa-phone"></i><div class="cc-c"><h4>Phone</h4><a href="tel:+201156526691">+20 115 652 6691</a></div></div>
+          <div class="cc glass"><i class="fab fa-whatsapp"></i><div class="cc-c"><h4>WhatsApp</h4><a href="https://wa.me/201013832532" target="_blank">+20 101 383 2532</a></div></div>
+          <div class="cc glass"><i class="fab fa-linkedin"></i><div class="cc-c"><h4>LinkedIn</h4><a href="https://linkedin.com/in/mahmoud-shalma" target="_blank">mahmoud-shalma</a></div></div>
+          <div class="cc glass"><i class="fab fa-github"></i><div class="cc-c"><h4>GitHub</h4><a href="https://github.com/MahmoudShalma" target="_blank">MahmoudShalma</a></div></div>
+          <div class="cc glass"><i class="fas fa-map-marker-alt"></i><div class="cc-c"><h4>Location</h4><p>Cairo, Egypt</p></div></div>
+        </div>
       </div>
-      <div class="contact-card glass">
-        <i class="fas fa-phone"></i>
-        <h3>Phone</h3>
-        <p><a href="tel:+201156526691">+20 115 652 6691</a></p>
-      </div>
-      <div class="contact-card glass">
-        <i class="fab fa-linkedin"></i>
-        <h3>LinkedIn</h3>
-        <p><a href="https://linkedin.com/in/mahmoud-shalma" target="_blank">mahmoud-shalma</a></p>
-      </div>
-      <div class="contact-card glass">
-        <i class="fab fa-whatsapp"></i>
-        <h3>WhatsApp</h3>
-        <p><a href="https://wa.me/201013832532" target="_blank">+20 101 383 2532</a></p>
-      </div>
-      <div class="contact-card glass">
-        <i class="fas fa-map-marker-alt"></i>
-        <h3>Location</h3>
-        <p>Cairo, Egypt</p>
+      <div class="cf glass">
+        <div class="fg"><label>Your Name</label><input type="text" placeholder="John Doe"></div>
+        <div class="fg"><label>Your Email</label><input type="email" placeholder="john@example.com"></div>
+        <div class="fg"><label>Subject</label><input type="text" placeholder="Project Discussion"></div>
+        <div class="fg"><label>Message</label><textarea placeholder="Tell me about your project..."></textarea></div>
+        <button class="btn btn-p" style="width:100%" onclick="window.open('mailto:mahmoud.shalma@outlook.com?subject=Contact from Portfolio&body='+document.querySelector('textarea').value)"><i class="fas fa-paper-plane"></i> Send Message</button>
       </div>
     </div>
   </section>
   
   <footer>
-    <p>© 2026 Mahmoud Shalma. Built with ❤️</p>
+    <div class="f-logo">&lt;MS/&gt;</div>
+    <div class="f-links">
+      <a href="#home">Home</a><a href="#about">About</a><a href="#skills">Skills</a><a href="#experience">Experience</a><a href="#projects">Projects</a><a href="#contact">Contact</a>
+    </div>
+    <div class="f-social">
+      <a href="https://linkedin.com/in/mahmoud-shalma" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+      <a href="https://github.com/MahmoudShalma" target="_blank"><i class="fab fa-github"></i></a>
+      <a href="https://wa.me/201013832532" target="_blank"><i class="fab fa-whatsapp"></i></a>
+      <a href="mailto:mahmoud.shalma@outlook.com"><i class="fas fa-envelope"></i></a>
+    </div>
+    <p class="f-copy">© 2026 Mahmoud Shalma. Crafted with ❤️ and lots of ☕</p>
   </footer>
+  
+  <button class="scroll-top" onclick="window.scrollTo({top:0,behavior:'smooth'})"><i class="fas fa-arrow-up"></i></button>
+  
+  <script>
+    window.addEventListener('scroll',()=>{
+      document.querySelector('.scroll-top').classList.toggle('visible',window.scrollY>500);
+    });
+  </script>
 </body>
 </html>
