@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mahmoud Shalma - Senior PHP/Laravel Developer</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    
+    :root {
+      --primary: #6366f1;
+      --secondary: #8b5cf6;
+      --accent: #06b6d4;
+      --dark: #0f172a;
+      --darker: #020617;
+      --glass: rgba(255,255,255,0.05);
+      --glass-border: rgba(255,255,255,0.1);
+    }
+    
+    html { scroll-behavior: smooth; }
+    
+    body {
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      background: var(--darker);
+      color: #e2e8f0;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+    
+    /* Animated Background */
+    .bg-animation {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      z-index: -1;
+      background: linear-gradient(135deg, var(--darker) 0%, #1e1b4b 50%, var(--darker) 100%);
+    }
+    
+    .bg-animation::before {
+      content: '';
+      position: absolute;
+      top: -50%; left: -50%;
+      width: 200%; height: 200%;
+      background: radial-gradient(circle, rgba(99,102,241,0.1) 0%, transparent 50%),
+                  radial-gradient(circle at 80% 20%, rgba(6,182,212,0.1) 0%, transparent 40%);
+      animation: rotate 30s linear infinite;
+    }
+    
+    @keyframes rotate { to { transform: rotate(360deg); } }
+    
+    /* Floating Orbs */
+    .orb {
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(80px);
+      opacity: 0.5;
+      animation: float 20s ease-in-out infinite;
+    }
+    
+    .orb-1 { width: 400px; height: 400px; background: var(--primary); top: 10%; left: 10%; }
+    .orb-2 { width: 300px; height: 300px; background: var(--accent); top: 60%; right: 10%; animation-delay: -10s; }
+    .orb-3 { width: 250px; height: 250px; background: var(--secondary); bottom: 10%; left: 30%; animation-delay: -5s; }
+    
+    @keyframes float {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      33% { transform: translate(30px, -30px) scale(1.05); }
+      66% { transform: translate(-20px, 20px) scale(0.95); }
+    }
+    
+    /* Navigation */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      padding: 1rem 2rem;
+      background: rgba(15,23,42,0.8);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--glass-border);
+      z-index: 1000;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .logo {
+      font-size: 1.5rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    
+    .nav-links a {
+      color: #94a3b8;
+      text-decoration: none;
+      font-weight: 500;
+      transition: all 0.3s;
+      position: relative;
+    }
+    
+    .nav-links a:hover { color: #fff; }
+    
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -5px; left: 0;
+      width: 0; height: 2px;
+      background: linear-gradient(90deg, var(--primary), var(--accent));
+      transition: width 0.3s;
+    }
+    
+    .nav-links a:hover::after { width: 100%; }
+    
+    /* Glass Card */
+    .glass {
+      background: var(--glass);
+      backdrop-filter: blur(20px);
+      border: 1px solid var(--glass-border);
+      border-radius: 20px;
+    }
+    
+    /* Hero Section */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 6rem 2rem 2rem;
+      position: relative;
+    }
+    
+    .hero-content {
+      text-align: center;
+      max-width: 800px;
+    }
+    
+    .hero-badge {
+      display: inline-block;
+      padding: 0.5rem 1.5rem;
+      background: linear-gradient(135deg, rgba(99,102,241,0.2), rgba(6,182,212,0.2));
+      border: 1px solid var(--glass-border);
+      border-radius: 50px;
+      font-size: 0.9rem;
+      margin-bottom: 1.5rem;
+      animation: fadeInUp 0.8s ease;
+    }
+    
+    .hero h1 {
+      font-size: clamp(2.5rem, 6vw, 4.5rem);
+      font-weight: 800;
+      margin-bottom: 0.5rem;
+      background: linear-gradient(135deg, #fff 0%, #94a3b8 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: fadeInUp 0.8s ease 0.2s both;
+    }
+    
+    .hero h2 {
+      font-size: clamp(1.2rem, 3vw, 1.8rem);
+      font-weight: 400;
+      color: #94a3b8;
+      margin-bottom: 2rem;
+      animation: fadeInUp 0.8s ease 0.4s both;
+    }
+    
+    .hero h2 span {
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      font-weight: 600;
+    }
+    
+    .hero-buttons {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      animation: fadeInUp 0.8s ease 0.6s both;
+    }
+    
+    .btn {
+      padding: 1rem 2rem;
+      border-radius: 12px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.3s;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    
+    .btn-primary {
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: #fff;
+      box-shadow: 0 10px 40px rgba(99,102,241,0.3);
+    }
+    
+    .btn-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 15px 50px rgba(99,102,241,0.4);
+    }
+    
+    .btn-secondary {
+      background: var(--glass);
+      border: 1px solid var(--glass-border);
+      color: #fff;
+    }
+    
+    .btn-secondary:hover {
+      background: rgba(255,255,255,0.1);
+      transform: translateY(-3px);
+    }
+    
+    /* Social Links */
+    .social-links {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      margin-top: 2rem;
+      animation: fadeInUp 0.8s ease 0.8s both;
+    }
+    
+    .social-links a {
+      width: 50px; height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 12px;
+      background: var(--glass);
+      border: 1px solid var(--glass-border);
+      color: #94a3b8;
+      font-size: 1.2rem;
+      transition: all 0.3s;
+    }
+    
+    .social-links a:hover {
+      color: #fff;
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      transform: translateY(-5px);
+    }
+    
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    /* Sections */
+    section {
+      padding: 5rem 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    
+    .section-title {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+    
+    .section-title h2 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+    
+    .section-title p { color: #64748b; }
+    
+    /* Skills */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+    }
+    
+    .skill-card {
+      padding: 2rem;
+      transition: all 0.3s;
+    }
+    
+    .skill-card:hover {
+      transform: translateY(-10px);
+      border-color: var(--primary);
+    }
+    
+    .skill-card h3 {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1.5rem;
+      font-size: 1.2rem;
+    }
+    
+    .skill-card h3 i {
+      width: 40px; height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      border-radius: 10px;
+    }
+    
+    .skill-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+    
+    .skill-tag {
+      padding: 0.4rem 1rem;
+      background: rgba(99,102,241,0.1);
+      border: 1px solid rgba(99,102,241,0.2);
+      border-radius: 20px;
+      font-size: 0.85rem;
+      color: #c7d2fe;
+    }
+    
+    /* Experience */
+    .timeline {
+      position: relative;
+      padding-left: 2rem;
+    }
+    
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 0;
+      width: 2px; height: 100%;
+      background: linear-gradient(180deg, var(--primary), var(--accent), var(--secondary));
+    }
+    
+    .timeline-item {
+      position: relative;
+      padding: 2rem;
+      margin-bottom: 1.5rem;
+      margin-left: 1rem;
+    }
+    
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: -1.6rem; top: 2.5rem;
+      width: 12px; height: 12px;
+      background: var(--primary);
+      border-radius: 50%;
+      box-shadow: 0 0 20px var(--primary);
+    }
+    
+    .timeline-date {
+      display: inline-block;
+      padding: 0.3rem 1rem;
+      background: linear-gradient(135deg, rgba(99,102,241,0.2), rgba(6,182,212,0.2));
+      border-radius: 20px;
+      font-size: 0.85rem;
+      margin-bottom: 1rem;
+    }
+    
+    .timeline-item h3 { font-size: 1.3rem; margin-bottom: 0.3rem; }
+    .timeline-item h4 { color: var(--accent); margin-bottom: 1rem; font-weight: 500; }
+    .timeline-item ul { list-style: none; }
+    .timeline-item li { padding: 0.3rem 0; padding-left: 1.5rem; position: relative; color: #94a3b8; }
+    .timeline-item li::before { content: '▹'; position: absolute; left: 0; color: var(--accent); }
+    
+    /* Projects */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 1.5rem;
+    }
+    
+    .project-card {
+      overflow: hidden;
+      transition: all 0.3s;
+    }
+    
+    .project-card:hover {
+      transform: translateY(-10px);
+      border-color: var(--primary);
+    }
+    
+    .project-img {
+      height: 200px;
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 4rem;
+    }
+    
+    .project-content { padding: 1.5rem; }
+    .project-content h3 { margin-bottom: 0.5rem; }
+    .project-content p { color: #94a3b8; margin-bottom: 1rem; font-size: 0.95rem; }
+    
+    .project-links { display: flex; gap: 1rem; }
+    
+    .project-links a {
+      padding: 0.5rem 1rem;
+      background: var(--glass);
+      border: 1px solid var(--glass-border);
+      border-radius: 8px;
+      color: #fff;
+      text-decoration: none;
+      font-size: 0.9rem;
+      transition: all 0.3s;
+    }
+    
+    .project-links a:hover { background: var(--primary); }
+    
+    /* Contact */
+    .contact-content {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+    }
+    
+    .contact-card {
+      padding: 2rem;
+      text-align: center;
+      transition: all 0.3s;
+    }
+    
+    .contact-card:hover {
+      transform: translateY(-5px);
+      border-color: var(--primary);
+    }
+    
+    .contact-card i {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    
+    .contact-card h3 { margin-bottom: 0.5rem; }
+    .contact-card p { color: #94a3b8; }
+    .contact-card a { color: var(--accent); text-decoration: none; }
+    
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 2rem;
+      border-top: 1px solid var(--glass-border);
+      color: #64748b;
+    }
+    
+    /* Responsive */
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .hero { padding-top: 5rem; }
+      .timeline { padding-left: 1rem; }
+      .timeline-item { margin-left: 0.5rem; padding: 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="bg-animation"></div>
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="orb orb-3"></div>
+  
+  <nav>
+    <div class="logo">MS</div>
+    <ul class="nav-links">
+      <li><a href="#home">Home</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+  
+  <section class="hero" id="home">
+    <div class="hero-content">
+      <div class="hero-badge">✨ Available for opportunities</div>
+      <h1>Mahmoud Shalma</h1>
+      <h2>Senior <span>PHP/Laravel Developer</span> & Team Lead</h2>
+      <div class="hero-buttons">
+        <a href="#contact" class="btn btn-primary"><i class="fas fa-envelope"></i> Get in Touch</a>
+        <a href="#projects" class="btn btn-secondary"><i class="fas fa-folder"></i> View Projects</a>
+      </div>
+      <div class="social-links">
+        <a href="https://linkedin.com/in/mahmoud-shalma" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+        <a href="https://github.com/MahmoudShalma" target="_blank"><i class="fab fa-github"></i></a>
+        <a href="mailto:mahmoud.shalma@outlook.com"><i class="fas fa-envelope"></i></a>
+        <a href="tel:+201156526691"><i class="fas fa-phone"></i></a>
+      </div>
+    </div>
+  </section>
+  
+  <section id="skills">
+    <div class="section-title">
+      <h2>Technical Skills</h2>
+      <p>Technologies I work with</p>
+    </div>
+    <div class="skills-grid">
+      <div class="skill-card glass">
+        <h3><i class="fas fa-server"></i> Backend Development</h3>
+        <div class="skill-tags">
+          <span class="skill-tag">PHP 8.x</span>
+          <span class="skill-tag">Laravel</span>
+          <span class="skill-tag">REST APIs</span>
+          <span class="skill-tag">Horizon</span>
+          <span class="skill-tag">Telescope</span>
+          <span class="skill-tag">RabbitMQ</span>
+        </div>
+      </div>
+      <div class="skill-card glass">
+        <h3><i class="fas fa-shopping-cart"></i> E-commerce</h3>
+        <div class="skill-tags">
+          <span class="skill-tag">Shopify</span>
+          <span class="skill-tag">Magento 2</span>
+          <span class="skill-tag">Jumia</span>
+          <span class="skill-tag">Noon</span>
+          <span class="skill-tag">ERPNext</span>
+        </div>
+      </div>
+      <div class="skill-card glass">
+        <h3><i class="fas fa-database"></i> Database</h3>
+        <div class="skill-tags">
+          <span class="skill-tag">MySQL</span>
+          <span class="skill-tag">Redis</span>
+          <span class="skill-tag">Query Optimization</span>
+          <span class="skill-tag">Multi-tenant</span>
+        </div>
+      </div>
+      <div class="skill-card glass">
+        <h3><i class="fas fa-code"></i> Frontend</h3>
+        <div class="skill-tags">
+          <span class="skill-tag">JavaScript</span>
+          <span class="skill-tag">jQuery</span>
+          <span class="skill-tag">HTML5</span>
+          <span class="skill-tag">CSS3</span>
+          <span class="skill-tag">Bootstrap</span>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <section id="experience">
+    <div class="section-title">
+      <h2>Experience</h2>
+      <p>My professional journey</p>
+    </div>
+    <div class="timeline">
+      <div class="timeline-item glass">
+        <span class="timeline-date">Aug 2024 - Present</span>
+        <h3>Team Lead – PHP/Laravel</h3>
+        <h4>Croco IT</h4>
+        <ul>
+          <li>Architected 2Loyal loyalty platform with FIFO points engine</li>
+          <li>Built ERPNext integrations with Jumia, Noon, Talabat</li>
+          <li>Designed multi-tenant RFID middleware architecture</li>
+          <li>Led team of developers and managed deployments</li>
+        </ul>
+      </div>
+      <div class="timeline-item glass">
+        <span class="timeline-date">Jun 2023 - Aug 2024</span>
+        <h3>Senior Web Developer</h3>
+        <h4>LINRCO-Egypt</h4>
+        <ul>
+          <li>Developed enterprise web applications</li>
+          <li>Built RESTful APIs for mobile backends</li>
+          <li>Implemented complex business logic systems</li>
+        </ul>
+      </div>
+      <div class="timeline-item glass">
+        <span class="timeline-date">Oct 2021 - Jun 2023</span>
+        <h3>Backend Developer</h3>
+        <h4>EEC Group</h4>
+        <ul>
+          <li>Built internal management systems</li>
+          <li>Developed reporting and analytics modules</li>
+          <li>Optimized existing Laravel applications</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+  
+  <section id="projects">
+    <div class="section-title">
+      <h2>Featured Projects</h2>
+      <p>Some of my recent work</p>
+    </div>
+    <div class="projects-grid">
+      <div class="project-card glass">
+        <div class="project-img">🏢</div>
+        <div class="project-content">
+          <h3>Al Madina Investment</h3>
+          <p>Corporate website for investment company with modern design and optimized performance.</p>
+          <div class="project-links">
+            <a href="https://almadina-inv.com/" target="_blank"><i class="fas fa-external-link-alt"></i> Live</a>
+          </div>
+        </div>
+      </div>
+      <div class="project-card glass">
+        <div class="project-img">🎁</div>
+        <div class="project-content">
+          <h3>2Loyal Platform</h3>
+          <p>Enterprise loyalty system with FIFO points engine, Shopify/Magento integrations, and referral system.</p>
+          <div class="project-links">
+            <a href="#"><i class="fas fa-lock"></i> Private</a>
+          </div>
+        </div>
+      </div>
+      <div class="project-card glass">
+        <div class="project-img">🔗</div>
+        <div class="project-content">
+          <h3>ERP Integration Suite</h3>
+          <p>Middleware connecting ERPNext with major marketplaces - automated stock & order sync.</p>
+          <div class="project-links">
+            <a href="#"><i class="fas fa-lock"></i> Private</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <section id="contact">
+    <div class="section-title">
+      <h2>Get In Touch</h2>
+      <p>Let's work together</p>
+    </div>
+    <div class="contact-content">
+      <div class="contact-card glass">
+        <i class="fas fa-envelope"></i>
+        <h3>Email</h3>
+        <p><a href="mailto:mahmoud.shalma@outlook.com">mahmoud.shalma@outlook.com</a></p>
+      </div>
+      <div class="contact-card glass">
+        <i class="fas fa-phone"></i>
+        <h3>Phone</h3>
+        <p><a href="tel:+201156526691">+20 115 652 6691</a></p>
+      </div>
+      <div class="contact-card glass">
+        <i class="fab fa-linkedin"></i>
+        <h3>LinkedIn</h3>
+        <p><a href="https://linkedin.com/in/mahmoud-shalma" target="_blank">mahmoud-shalma</a></p>
+      </div>
+      <div class="contact-card glass">
+        <i class="fas fa-map-marker-alt"></i>
+        <h3>Location</h3>
+        <p>Cairo, Egypt</p>
+      </div>
+    </div>
+  </section>
+  
+  <footer>
+    <p>© 2025 Mahmoud Shalma. Built with ❤️</p>
+  </footer>
+</body>
+</html>
